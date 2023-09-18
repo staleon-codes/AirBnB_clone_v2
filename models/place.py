@@ -4,6 +4,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -22,3 +23,7 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
     amenity_ids = []
+    # for DBStorage
+    reviews = relationship('Review', cascade='all, delete, delete-orphan', backref='place')
+    # for Filestorage
+    #-----------------------------------------
