@@ -35,6 +35,6 @@ class Place(BaseModel, Base):
     #-----------------------------------------
 
     #amenity for DBStorage
-    amenities = relationship('Amenity', secondary=place_amenity ,viewonly=False)
+    amenities = relationship('Amenity', secondary=place_amenity ,viewonly=False, back_populates="place_amenities")
     # amenity for Filestorage
     #-----------------------------------------
