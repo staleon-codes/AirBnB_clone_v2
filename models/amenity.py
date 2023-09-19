@@ -7,12 +7,11 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import relationship
 from models.place import place_amenity
 
-Base = declarative_base()
-
 
 class Amenity(BaseModel, Base):
     """Amenity Class."""
 
-    __tablename__='amenities'
+    __tablename__ = 'amenities'
     name = Column(String(128), nullable=False)
-    place_amenities = relationship("Place", secondary=place_amenity, back_populates="amenities")
+    place_amenities = relationship(
+        "Place", secondary=place_amenity, back_populates="amenities")
