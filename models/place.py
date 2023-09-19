@@ -5,6 +5,8 @@ from models.base_model import BaseModel, Base
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
+from os import getenv
+
 
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60), ForeignKey(
@@ -51,12 +53,12 @@ class Place(BaseModel, Base):
                     reviews_list.append(review)
             return reviews_list
 
-        @property
-        def amenities(self):
-            from models.amenity import Amenity
-            amenities_list = []
-            for review in storage.all(Review).values():
-                if class_obj.amenity_ids == self.id:
-                    amenities_list.append(review)
-            return amenities_list
-        # TODO amenities Setter
+        # @property
+        # def amenities(self):
+        #     from models.amenity import Amenity
+        #     amenities_list = []
+        #     for review in storage.all(Review).values():
+        #         if class_obj.amenity_ids == self.id:
+        #             amenities_list.append(review)
+        #     return amenities_list
+        # # TODO amenities Setter
