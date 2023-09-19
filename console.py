@@ -128,25 +128,18 @@ class HBNBCommand(cmd.Cmd):
 
         args_dict = {}
         for attribute in args_list[1:]:
-            attr_list = attribute.split("=")
-            try:
-
+            if '=' in attribute:
+                attr_list = attribute.split("=")
                 if attr_list[1][0] == '"' and attr_list[1][-1] == '"':
                     attr_value = attr_list[1].strip('"').replace('_', ' ')
                 elif attr_list[1].isdigit():
                     attr_value = int(attr_list[1])
-                elif '.' in attr_list[1]:
+                else:
                     try:
                         attr_value = float(attr_list[1])
-                    except ValueError:
+                    except Exception:
                         continue
-                else:
-                    continue
                 args_dict[attr_list[0]] = attr_value
-                print(args_dict)
-
-            except IndexError:
-                continue
         if args_dict == {}:
             new_instance = HBNBCommand.classes[args_list[0]]()
         else:
