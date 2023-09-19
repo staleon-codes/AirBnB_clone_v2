@@ -31,15 +31,15 @@ class Place(BaseModel, Base):
     reviews = relationship('Review', cascade='all, delete, delete-orphan', backref='place')
     # review for Filestorage
     #-----------------------------------------
-    @property
-    def reviews(self):
-        """reviews getter"""
-        return self.reviews
+    # @property
+    # def reviews(self):
+    #     """reviews getter"""
+    #     return self.reviews
     #amenity for DBStorage
     amenities = relationship('Amenity', secondary=place_amenity ,viewonly=False, back_populates="place_amenities")
     # amenity for Filestorage
     #-----------------------------------------
-    @property
-    def amenities(self):
-        """amenities getter"""
-        return self.amenities
+    # @property
+    # def amenities(self):
+    #     """amenities getter"""
+    #     return self.amenities

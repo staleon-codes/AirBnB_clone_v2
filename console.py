@@ -125,8 +125,8 @@ class HBNBCommand(cmd.Cmd):
             return
         # create State name="California"
         # create User email=1.1 pwassword="aasdasd"
-        new_instance = HBNBCommand.classes[args_list[0]]()
-        attr_value = None
+
+        args_dict = {}
         for attribute in args_list[1:]:
             attr_list = attribute.split("=")
             try:
@@ -142,10 +142,15 @@ class HBNBCommand(cmd.Cmd):
                         continue
                 else:
                     continue
-                setattr(new_instance, attr_list[0], attr_value)
+                args_dict[attr_list[0]] = attr_value
+                print(args_dict)
+
             except IndexError:
                 continue
-
+        if args_dict == {}:
+            new_instance = HBNBCommand.classes[args_list[0]]()
+        else:
+            new_instance = HBNBCommand.classes[args_list[0]](**args_dict)
         new_instance.save()
         print(new_instance.id)
 
