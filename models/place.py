@@ -8,9 +8,6 @@ from os import getenv
 from models.amenity import Amenity
 from models.review import Review
 
-from models import storage
-
-
 place_amenity = Table(
     'place_amenity', Base.metadata,
     Column('place_id', String(60), ForeignKey('places.id'),
@@ -38,8 +35,7 @@ class Place(BaseModel, Base):
 
     reviews = relationship('Review', backref='place', cascade='delete')
     amenities = relationship("Amenity", secondary="place_amenity",
-                             viewonly=False,
-                             overlaps="place_amenities")
+                             viewonly=False, overlaps="place_amenities")
 
     if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
