@@ -2,19 +2,20 @@
 """This module defines a db_storge class"""
 from os import getenv
 from models.base_model import Base
-from models.review import Review
-from models.city import City
-from models.user import User
 from models.amenity import Amenity
 from models.place import Place, place_amenity
 from models.state import State
+from models.review import Review
+from models.city import City
+from models.user import User
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
-__classes = {"User": User, "State": State, "City": City,
-             "Amenity": Amenity, "Place": Place, "Review": Review}
+__classes = {"State": State, "Amenity": Amenity,
+             "City": City, "Place": Place,
+             "Review": Review, "User": User}
 
 
 class DBStorage:
@@ -34,7 +35,7 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        '''query on the current db session all cls objects'''
+        """query on the current db"""
         my_dict = {}
         if cls is None:
             for cl in __classes.values():
