@@ -12,6 +12,7 @@ class DBStorage:
     __session = None
 
     def __init__(self):
+        """Instatntiates a new model"""
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}/{}'.format(getenv('HBNB_MYSQL_USER'),
                                                  getenv('HBNB_MYSQL_PWD'),
@@ -19,6 +20,7 @@ class DBStorage:
                                                  getenv('HBNB_MYSQL_DB')),
             pool_pre_ping=True)
         if getenv('HBNB_ENV') == 'test':
+            from models.base_model import BaseModel, Base
             Base.metadata.drop_all(__engine)
 
     def all(self, cls=None):
