@@ -39,11 +39,11 @@ class Place(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
         def reviews(self):
-            """get linked Amenities"""
+            """get linked reviews"""
             from models.review import Review
             reviews_list = []
-            for review in storage.all(Review).values():
-                if class_obj.place_id == self.id:
+            for review in self.reviews:
+                if review.place_id == self.id:
                     reviews_list.append(review)
             return reviews_list
 
