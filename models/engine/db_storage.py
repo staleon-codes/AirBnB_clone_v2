@@ -21,7 +21,7 @@ class DBStorage:
             pool_pre_ping=True)
         if getenv('HBNB_ENV') == 'test':
             from models.base_model import BaseModel, Base
-            Base.metadata.drop_all(__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """get all cls object from mysql"""
