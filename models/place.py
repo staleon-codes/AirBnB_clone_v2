@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """Place Module for HBNB project."""
 
-from models.base_model import BaseModel, Base
+
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 from os import getenv
-
+from models.amenity import Amenity
+from models.review import Review
+from models.base_model import BaseModel, Base
 
 place_amenity = Table(
     'place_amenity', Base.metadata,
@@ -32,7 +34,7 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     amenity_ids = []
 
-    reviews = relationship('Review', cascade='all, delete', backref='place')
+    reviews = relationship('Review', backref='place', cascade='all, delete')
     amenities = relationship('Amenity', secondary='place_amenity',
                              viewonly=False)
 
@@ -40,7 +42,6 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             """get linked reviews"""
-            from models.review import Review
             reviews_list = []
             for review in self.reviews:
                 if review.place_id == self.id:
@@ -56,7 +57,6 @@ class Place(BaseModel, Base):
         @property
         def amenities(self):
             """get linked Amenities"""
-            from models.amenity import Amenity
             amenities_list = []
             for review in storage.all(Review).values():
                 if self.id in class_obj.amenity_ids:
