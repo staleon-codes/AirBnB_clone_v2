@@ -37,7 +37,7 @@ class BaseModel:
             self.__dict__.update(kwargs)
 
     def __str__(self):
-        """Returns a string repressentatio n of the instance"""
+        """Returns a string representatio n of the instance"""
         new_dict = self.__dict__.copy()
         if '_sa_instance_state' in new_dict:
             del new_dict['_sa_instance_state']
