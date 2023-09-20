@@ -48,12 +48,6 @@ class Place(BaseModel, Base):
                     reviews_list.append(review)
             return reviews_list
 
-        @amenities.setter
-        def amenities(self, amenity):
-            """set linked Amenities"""
-            if type(amenity) == Amenity:
-                self.amenity_ids.append(amenity.id)
-
         @property
         def amenities(self):
             """get linked Amenities"""
@@ -62,3 +56,9 @@ class Place(BaseModel, Base):
                 if self.id in class_obj.amenity_ids:
                     amenities_list.append(review)
             return amenities_list
+
+        @amenities.setter
+        def amenities(self, amenity):
+            """set linked Amenities"""
+            if type(amenity) == Amenity:
+                self.amenity_ids.append(amenity.id)
