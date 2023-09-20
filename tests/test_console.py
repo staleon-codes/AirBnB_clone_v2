@@ -3,7 +3,7 @@
 test module
 """
 import unittest
-from console import HBNBCommand
+import console
 from unittest.mock import patch
 from io import StringIO
 from models.user import User
@@ -57,15 +57,6 @@ class TestConstructor(unittest.TestCase):
             self.assertEqual(
                 """Updates an instance based on the class name and id""",
                 f.getvalue()[:-1])
-
-        #         with patch('sys.stdout', new=StringIO()) as f:
-        #             HBNBCommand().onecmd("help")
-        #             self.assertEqual(
-        #                 """
-        # Documented commands (type help <topic>):
-        # ========================================
-        # EOF  all  count  create  destroy  help  quit  show  update
-        # """, f.getvalue()[:-1])
 
     def rest_file_storage(self):
         """test create"""
@@ -193,6 +184,7 @@ class TestConstructor(unittest.TestCase):
         self.assertIsNotNone(HBNBCommand.count.__doc__)
         self.assertIsNotNone(HBNBCommand.strip_clean.__doc__)
         self.assertIsNotNone(HBNBCommand.default.__doc__)
+        self.assertIsNotNone(console.__doc__)
 
     def test_show(self):
         """test create"""
