@@ -9,14 +9,9 @@ from models.amenity import Amenity
 from models.place import Place
 from models.state import State
 
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-
-if getenv('HBNB_TYPE_STORAGE') == 'db':
-    from models.place import place_amenity
-
-classes = {"User": User, "State": State, "City": City,
-           "Amenity": Amenity, "Place": Place, "Review": Review}
 
 
 class DBStorage:
@@ -36,20 +31,18 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        '''query on the current db session all cls objects'''
-        dct = {}
-        if cls is None:
-            for c in classes.values():
-                objs = self.__session.query(c).all()
-                for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    dct[key] = obj
+        """get all cls object from mysql"""
+        query_results = None
+        query_dict = {}
+        if cls:
+            query_results = self.__session.query(cls).all()
         else:
-            objs = self.__session.query(cls).all()
-            for obj in objs:
-                key = obj.__class__.__name__ + '.' + obj.id
-                dct[key] = obj
-        return dct
+            query_results = self.__session.query(
+                User, State, City, Amenity, Place, Review).all()
+
+        for obj in query_results:
+            query_dict[obj.__class__.__name__ + '.' + obj.id] = obj.to_dict()
+        return query_dict
 
     def new(self, obj):
         """add the object to the current database"""
