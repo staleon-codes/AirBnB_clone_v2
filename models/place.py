@@ -32,20 +32,14 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     amenity_ids = []
 
-    reviews = relationship('Review', cascade='delete', backref='place')
+    reviews = relationship('Review', cascade='all, delete', backref='place')
     amenities = relationship('Amenity', secondary=place_amenity,
                              viewonly=False, back_populates="place_amenities")
 
-    # review for Filestorage
-    # -----------------------------------------
-    # @property
-    # def reviews(self):
-    #     """reviews getter"""
-    #     return self.reviews
-    # amenity for DBStorage
     if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
         def reviews(self):
+            """get linked Amenities"""
             from models.review import Review
             reviews_list = []
             for review in storage.all(Review).values():
@@ -53,12 +47,18 @@ class Place(BaseModel, Base):
                     reviews_list.append(review)
             return reviews_list
 
-        # @property
-        # def amenities(self):
-        #     from models.amenity import Amenity
-        #     amenities_list = []
-        #     for review in storage.all(Review).values():
-        #         if class_obj.amenity_ids == self.id:
-        #             amenities_list.append(review)
-        #     return amenities_list
-        # # TODO amenities Setter
+        @amenities.setter
+        def amenities(self, amenity):
+            """set linked Amenities"""
+            if type(amenity) == Amenity:
+                self.amenity_ids.append(amenity.id)
+
+        @property
+        def amenities(self):
+            """get linked Amenities"""
+            from models.amenity import Amenity
+            amenities_list = []
+            for review in storage.all(Review).values():
+                if self.id in class_obj.amenity_ids:
+                    amenities_list.append(review)
+            return amenities_list
