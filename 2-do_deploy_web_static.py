@@ -34,7 +34,7 @@ def do_deploy(archive_path):
             run(f'mkdir -p /data/web_static/releases/{filename}/')
             run(f'tar -xzf /tmp/{filename}.tgz -C \
                 /data/web_static/releases/{filename}/')
-            run(f'rm -rf /tmp/{filename}.tgz')
+            run(f'rm /tmp/{filename}.tgz')
             run(f'mv /data/web_static/releases/{filename}/web_static/* \
                 /data/web_static/releases/{filename}/')
             run(
