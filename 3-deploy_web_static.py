@@ -12,6 +12,7 @@ def do_pack():
     try:
         f_current_time = datetime.now().strftime('%Y%m%d%H%M%S')
         file_name = f'web_static_{f_current_time}.tgz'
+        print(f"Packing web_static to versions/{file_name}")
         local("mkdir -p versions")
         local(f"tar -cvzf versions/{file_name} web_static")
         return f"versions/{file_name}"
@@ -52,7 +53,10 @@ def do_deploy(archive_path):
 @task
 def deploy():
     """full deployment"""
-    path = do_pack()
-    if path is None:
+    try:
+        path = do_pack()
+        if path is None:
+            return False
+        return do_deploy(path)
+    except Exception as e:
         return False
-    return do_deploy(path)
