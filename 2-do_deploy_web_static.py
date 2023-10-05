@@ -21,25 +21,26 @@ def do_pack():
 
 @task
 def do_deploy(archive_path):
+    """deploy web_static to servers"""
     env.hosts = ['35.153.79.242', '52.201.164.137']
     if not os.path.exists(archive_path):
         return False
     try:
         for host in env.hosts:
             env.host_string = host
-            archive_filename = archive_path.split('/')[-1]
-            archive_filename = archive_filename.split('.')[0]
+            filename = archive_path.split('/')[-1]
+            filename = filename.split('.')[0]
             put(archive_path, '/tmp/')
-            run(f'mkdir -p /data/web_static/releases/{archive_filename}/')
-            run(f'tar -xzf /tmp/{archive_filename}.tgz -C \
-                /data/web_static/releases/{archive_filename}/')
-            run(f'rm -rf /tmp/{archive_filename}.tgz')
-            run(f'mv /data/web_static/releases/{archive_filename}/web_static/* \
-                /data/web_static/releases/{archive_filename}/')
+            run(f'mkdir -p /data/web_static/releases/{filename}/')
+            run(f'tar -xzf /tmp/{filename}.tgz -C \
+                /data/web_static/releases/{filename}/')
+            run(f'rm -rf /tmp/{filename}.tgz')
+            run(f'mv /data/web_static/releases/{filename}/web_static/* \
+                /data/web_static/releases/{filename}/')
             run(
-                f'rm -rf /data/web_static/releases/{archive_filename}/web_static')
+                f'rm -rf /data/web_static/releases/{filename}/web_static')
             run(f'rm -rf /data/web_static/current')
-            run(f'ln -s /data/web_static/releases/{archive_filename}/ \
+            run(f'ln -s /data/web_static/releases/{filename}/ \
                 /data/web_static/current')
             print('New version deployed!')
 
