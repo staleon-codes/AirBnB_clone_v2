@@ -8,11 +8,11 @@
         <UL>
             {% for s in sorted_states_list %}
                 <LI>{{ s.id }}: <B>{{ s.name }}</B></LI>
-                <ul>
+                <UL>
                     {% for c in s.cities %}
                         <LI>{{ c.id }}: <B>{{ c.name }}</B></LI>
                     {% endfor %}
-                </ul>
+                </UL>
             {% endfor %}
         </UL>
     </BODY>
