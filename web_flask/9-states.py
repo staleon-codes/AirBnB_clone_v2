@@ -17,7 +17,6 @@ def states_and_state(id=None):
         State).values(), key=lambda x: x.name)
     if id is None:
         return render_template("9-states.html", sorted_states_list=slist)
-
     else:
         # sort cities by name from a to z
         for s in slist:
