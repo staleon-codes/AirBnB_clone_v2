@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Place Module for HBNB project."""
+"""Spot Module for HBNB project."""
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
@@ -18,7 +18,7 @@ place_amenity = Table(
 
 
 class Place(BaseModel, Base):
-    """A place to stay."""
+    """Locale to stay."""
 
     __tablename__ = 'places'
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
