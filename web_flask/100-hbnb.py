@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Starts a Flask web application.
+"""Triggers a Flask web application.
 
 The application listens on 0.0.0.0, port 5000.
 Routes:
@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
-    """Displays the main HBnB filters HTML page."""
+    """Shows the main HBnB filters HTML page."""
     states = storage.all("State")
     amenities = storage.all("Amenity")
     places = storage.all("Place")
