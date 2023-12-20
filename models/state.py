@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
+""" Place Module for HBNB project """
 
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
@@ -15,7 +15,7 @@ class State(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
         def cities(self):
-            """cities getter in case of using file storage"""
+            """cities geter in case of using file storage"""
             from models.city import City
             from models import storage
             cities_list = []
