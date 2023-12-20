@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Test link Many-To-Many Place <> Amenity
+""" Probe link Many-To-Many Place <> Amenity
 """
 from models.base_model import BaseModel
 from models.__init__ import storage
